@@ -15,8 +15,8 @@ test.describe('Launch Browser', () => {
     await page.locator("[class='button is-primary is-rounded is-small']").first().click();
     await page.pause();
 
-    
-  });
+       // 
+  });  
 
 
   
