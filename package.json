@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
 
-    "test": "npx playwright test SvgHandle.test.ts"
+    "test": "npx playwright test Part11_HandleMultipleWindows.test.ts"
 
   },
   "keywords": [],

@@ -44,9 +44,9 @@ test.describe('Launch BrowserCovid', () => {
           let srcBound= await element?.boundingBox();
           if(srcBound){
           await page.mouse.move(srcBound.x+srcBound.width/2,srcBound.y+srcBound.height/2);
-        await page.mouse.down();
+       // await page.mouse.down();
         await page.mouse.move(srcBound.x -1,srcBound.y+srcBound.height/2);
-        await page.mouse.up();
+        //await page.mouse.up();
         //await element?.hover({ position: { x: -5, y:0.0} });
           //await page.waitForTimeout(1000);
           }
