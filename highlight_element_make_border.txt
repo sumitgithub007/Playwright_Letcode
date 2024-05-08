@@ -1,0 +1,13 @@
+async function changeElementBackgroundColor(page: Page, selector: string, color: string) {
+            const element = await page.$(selector);
+            if (!element) {
+                console.error(`Element with selector ${selector} not found.`);
+                return;
+            }
+
+            await element.evaluate((el: HTMLElement, bgColor: string) => {
+                el.style.border = bgColor;
+            }, color);
+        }
+
+        await changeElementBackgroundColor(page, "//*[text()='Multi-city']", '2px solid red');
