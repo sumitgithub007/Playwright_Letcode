@@ -1,0 +1,67 @@
+import {expect,test,Browser,Page, BrowserContext, Locator} from  "@playwright/test";
+import {webkit,chromium,firefox} from "playwright";
+import { text } from "stream/consumers";
+
+test("Login test",async()=>{
+
+    let check:boolean=true;
+    const year_select:number= 2024;
+    const browser:Browser = await  chromium.launch({headless:false});
+    const context:BrowserContext = await browser.newContext();
+    const page:Page =await context.newPage();
+    await page.goto("https://www.goibibo.com/");
+    await page.locator("//span[@class='logSprite icClose']").click();
+    await page.locator("//*[text()='Departure']").click();
+    let year_integer:number=0;
+    await page.waitForSelector("(//div[@class='DayPicker-Caption'])[2]");
+
+    while(await page.locator("(//div[@class='DayPicker-Caption'])[2]").textContent()!="June 2026")
+    {
+
+        const datenew:string|null = await page.locator("(//div[@class='DayPicker-Caption'])[2]").textContent();
+        if(datenew!=null)
+        {
+            const yearfetched:string=datenew.split(" ")[1];
+            year_integer=parseInt(yearfetched);
+            console.log(year_integer);
+
+        }
+        if(year_integer<=year_select)
+            {
+                await page.locator("//span[@aria-label='Next Month']").click();
+
+            }
+            else{
+                console.log("check supplied year and month exiting loop");
+                check=false;
+                break;
+
+            }
+
+    }
+    if(check)
+    {
+        const dates:Locator[] = await page.locator("(//div[@class='DayPicker-Month'])[2]//div[@class='DayPicker-Day']").all();
+        for(const date of  dates)
+        {
+            const text_date  =await date.textContent();
+            if(text_date==="2")
+                {
+                await date.click();
+                break;
+                }
+
+
+
+        }
+    }
+
+
+    await page.pause();
+
+
+
+
+
+
+})
